@@ -1,0 +1,18 @@
+#!/bin/bash
+DATE=`date +%y-%m-%d`
+echo "Creating temp folders"
+mkdir /var/backup/rsync/$DATE
+mkdir /var/backup/rsync/$DATE/files
+echo "MySQL Dump"
+mysqldump --password=MySQLRootPassword --add-drop-database --complete-insert --add-drop-table --extended-insert --hex-blob --all-databases > /var/backup/rsync/$DATE/mysql_backup.sql
+echo "Copy folders in temp folder for backup"
+rsync -rltgoD --ignore-errors --force /folder/do/you/want/to/backup/ /var/backup/rsync/$DATE/files
+#rsync -rltgoD --ignore-errors --force /2nd/folder/do/you/want/to/backup/ /var/backup/rsync/$DATE/files
+echo "Backup compression"
+tar cjf /var/backup/backup-$DATE.tar.gz -C /var/backup/rsync/ .
+echo "Moving the compressed backup"
+mv /var/backup/backup-$DATE.tar.gz /var/backup/final/
+echo "Deleting the contents of the temporary folder"
+rm -rf /var/backup/rsync/*
+echo "Connection to the FTP server and sending backup"
+ncftpput -u username -p password serveradress "/remote/repertory" "/var/backup/final/backup-$DATE.tar.gz"
