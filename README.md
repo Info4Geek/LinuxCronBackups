@@ -19,31 +19,31 @@ Before start script you must do this:
 - Other: Google > "distribution_name install paquet"
 
 3. Create save folders:
-'''mkdir /var/backup && mkdir /var/backup/rsync && mkdir /var/backup/final'''
+```mkdir /var/backup && mkdir /var/backup/rsync && mkdir /var/backup/final```
 
 4. Edit following lines in the script with your needs:
-'''mysqldump >> --password=MySQLRootPassword'''
-'''rsync >> /folder/do/you/want/to/backup/'''
-'''ncftpput >> -u username
+```mysqldump >> --password=MySQLRootPassword```
+```rsync >> /folder/do/you/want/to/backup/```
+```ncftpput >> -u username
 			-p password
 			serveradress
-			"/remote/repertory"'''
+			"/remote/repertory"```
 You can also edit the default working folder. 
 On my script default working folder is /var/backup
 
 5. You can add other rsync lines if you want to backup more folders and files
 
 6. Make the script executable:
-'''chmod +x /location/of/bacup_script'''
+```chmod +x /location/of/bacup_script```
 
 7. Cron your script for backups occur automatically when you want.
-'''$crontab -e'''
+```$crontab -e```
 Add on the end of the file this:
-'''0 5 * * * bash /location/of/bacup_script'''
+```0 5 * * * bash /location/of/bacup_script```
 In this case the backup will every day at 5am, you can change the time when baccup occur with your needs following the functioning of Cron.
 Cron on Wikipedia: https://en.wikipedia.org/wiki/Crontab#Predefined_scheduling_definitions
 
 Save the crontab file.
 
 8. You can start manualy your script like this:
-'''/location/of/bacup_script'''
+```/location/of/bacup_script```
