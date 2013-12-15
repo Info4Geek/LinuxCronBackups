@@ -1,4 +1,4 @@
-LinuxCronBackups
+Linux Cron Backups
 ================
 
 Automated simple backup script for Linux.
